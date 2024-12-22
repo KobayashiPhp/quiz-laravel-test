@@ -1,29 +1,29 @@
 services:
     
   web: 
-    container_name: myapp-php
+    container_name: quizApp-php
     build: ./docker-config/php
     ports:
       - '5173:5173'
     volumes:
-      - .:/var/www/
+      - ./quiz-app:/var/www/
     depends_on:
       - mariadb
 
   nginx:
-    container_name: myapp-nginx
+    container_name: quizApp-nginx
     image: nginx
     build: ./docker-config/nginx
     ports:
       - "81:80"
     volumes:
-      - .:/var/www
+      - ./quiz-app:/var/www/
       - ./docker-config/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - web
 
   mariadb:
-    container_name: myapp-mariadb
+    container_name: quizApp-mariadb
     image: mariadb
     ports:
       - 3306:3306
